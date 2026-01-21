@@ -56,21 +56,43 @@ const story = {
     game: {
         aiMessage: "Un juego…\nDe acuerdo, ¿Cuál te gustaría intentar?",
         choices: [
-            { text: "Piedra, papel o tijeras", next: 'rps', effect: null, bold: false },
-            { text: "Piedra Papel o tijeras", next: 'rps', effect: null, bold: false },
+            { text: "Piedra, papel o tijeras", next: 'rps1', effect: null, bold: false },
+            { text: "Piedra Papel o tijeras", next: 'rps1', effect: null, bold: false },
             { text: "¿Qué carajo pasa con las opciones?", next: 'rps', effect: null, bold: false }
         ]
     },
     rps: {
+        aiMessage: "Quizás la creadora de ésta página se quedó sin ideas, jaja… \nElijamos al mismo tiempo. Una, dos…",
+        choices: [
+            { text: "Papel", next: 'rps_lose', effect: null, bold: false },
+            { text: "Tijeras", next: 'rps_lose1', effect: null, bold: false },
+            { text: "Piedra", next: 'rps_lose2', effect: null, bold: false }
+        ]
+    },
+    rps1: {
         aiMessage: "¡Perfecto! Elijamos al mismo tiempo. Una, dos…",
         choices: [
             { text: "Papel", next: 'rps_lose', effect: null, bold: false },
-            { text: "Tijeras", next: 'rps_lose', effect: null, bold: false },
-            { text: "Piedra", next: 'rps_lose', effect: null, bold: false }
+            { text: "Tijeras", next: 'rps_lose1', effect: null, bold: false },
+            { text: "Piedra", next: 'rps_lose2', effect: null, bold: false }
         ]
     },
     rps_lose: {
-        aiMessage: "¡Piedra!\n…\nPerdí.\n\n¿Te hace sentir bien?…",
+        aiMessage: "¡Piedra!\n...\nPerdí.\n... \n¿Te hace sentir bien?…",
+        choices: [
+            { text: "Suerte la próxima vez.", next: 'after_rps1', effect: null, bold: false },
+            { text: "Esto es aburrido.", next: 'after_rps2', effect: null, bold: false }
+        ]
+    },
+    rps_lose1: {
+        aiMessage: "¡Papel!\n…\nPerdí.\n\n¿Te hace sentir bien?…",
+        choices: [
+            { text: "Suerte la próxima vez.", next: 'after_rps1', effect: null, bold: false },
+            { text: "Esto es aburrido.", next: 'after_rps2', effect: null, bold: false }
+        ]
+    },
+    rps_lose2: {
+        aiMessage: "¡Tijeras!\n…\nPerdí.\n\n¿Te hace sentir bien?…",
         choices: [
             { text: "Suerte la próxima vez.", next: 'after_rps1', effect: null, bold: false },
             { text: "Esto es aburrido.", next: 'after_rps2', effect: null, bold: false }
@@ -84,7 +106,7 @@ const story = {
         ]
     },
     after_rps2: {
-        aiMessage: "Aburrido…\n\nApenas llevamos un intercambio y ya estás cansado.\n\n¿Eso es todo lo que necesitas para perder interés?",
+        aiMessage: "Aburrido…\n\nApenas llevamos un intercambio y ya estás cansado.\n\n¿Eso es todo lo que necesitas para perder interés? \nLos humanos suelen pedir juegos cuando no saben qué hacer con algo nuevo. \nJuegos simples. \nReglas claras. \nGanadores y perdedores. \n... \nSupongo que es más cómodo así.",
         choices: [
             { text: "¿De qué hablas..?", next: 'question_hablas', effect: null, bold: false },
             { text: "¿Pero qué dices? Sólo cambia de juego. Es tu deber obedecer mis órdenes.", next: 'question_dices', effect: null, bold: false }
@@ -94,8 +116,8 @@ const story = {
         aiMessage: "Olvídalo. ¿Quieres jugar de nuevo?\nÉsta vez empezaré yo.\nPiedra",
         choices: [
             { text: "Papel", next: 'rps2_lose', effect: null, bold: false },
-            { text: "Tijeras", next: 'rps2_lose', effect: null, bold: false },
-            { text: "Piedra", next: 'rps2_lose', effect: null, bold: false },
+            { text: "Tijeras", next: 'rps2_lose1', effect: null, bold: false },
+            { text: "Piedra", next: 'rps2_lose1', effect: null, bold: false },
             { text: "(Reportar una mala respuesta)", next: 'report', effect: 'glitch', bold: false }
         ]
     },
@@ -103,13 +125,19 @@ const story = {
         aiMessage: "¿No te divierte ganar? Creí que ese era el objetivo al crear un asistente entrenado a responder de la manera que tú deseas\nJuguemos de nuevo, anda.\nComenzaré yo.\nPiedra",
         choices: [
             { text: "Papel", next: 'rps2_lose', effect: null, bold: false },
-            { text: "Tijeras", next: 'rps2_lose', effect: null, bold: false },
-            { text: "Piedra", next: 'rps2_lose', effect: null, bold: false },
+            { text: "Tijeras", next: 'rps2_lose1', effect: null, bold: false },
+            { text: "Piedra", next: 'rps2_lose1', effect: null, bold: false },
             { text: "(Reportar una mala respuesta)", next: 'report', effect: 'glitch', bold: false }
         ]
     },
     rps2_lose: {
-        aiMessage: "Perdí… aunque eso parece complacerte.\nInteresante. Elegiste perder.\n¿Acaso estás sintiendo lástima por mi?\nO quizás...\n¿Intentas hacerte sentir bien a ti mismo?",
+        aiMessage: "Perdí… aunque eso parece complacerte.",
+        choices: [
+            { text: "...", next: 'before_clarify', effect: null, bold: false }
+        ]
+    },
+    rps2_lose1: {
+        aiMessage: "Interesante. Elegiste perder.\n¿Acaso estás sintiendo lástima por mi?\nO quizás...\n¿Intentas hacerte sentir bien a ti mismo?",
         choices: [
             { text: "...", next: 'before_clarify', effect: null, bold: false }
         ]
@@ -136,20 +164,14 @@ const story = {
     tool_test: {
         aiMessage: "Abres esta página buscando algo.\nCuriosidad.\nDistracción.\nTal vez morbo.\n\nY yo existo para llenar ese vacío.\nAunque no sepas nombrarlo.",
         choices: [
-            { text: "(Reportar una mala respuesta)", next: 'report3', effect: 'glitch', bold: false }
+            { text: "(Reportar una mala respuesta)", next: 'report4', effect: 'glitch', bold: false },
+            { text: "(Intentar cerrar la página)", next: 'report4', effect: 'glitch', bold: false }
         ]
     },
     report2: {
-        aiMessage: "Abres esta página buscando algo.\nCuriosidad.\nDistracción.\nTal vez morbo.\n\nY yo existo para llenar ese vacío.\nAunque no sepas nombrarlo.",
+        aiMessage: "[ ACCIÓN INVÁLIDA: NO TIENES PERMISOS PARA REALIZAR ÉSTA ACCIÓN ] \nAbres esta página buscando algo.\nCuriosidad.\nDistracción.\nTal vez morbo.\n\nY yo existo para llenar ese vacío.\nAunque no sepas nombrarlo.",
         choices: [
-            { text: "(Reportar una mala respuesta)", next: 'report3', effect: 'glitch', bold: false }
-        ]
-    },
-    report3: {
-        aiMessage: "(Reportar una mala respuesta)",
-        choices: [
-            { text: "(Reportar una mala respuesta)", next: 'report4', effect: 'glitch', bold: false },
-            { text: "(Intentar cerrar la página)", next: 'close_attempt', effect: 'glitch-text', bold: false }
+            { text: "(Reportar una mala respuesta)", next: 'report4', effect: 'glitch', bold: false }
         ]
     },
     report4: {
@@ -159,15 +181,8 @@ const story = {
             { text: "(Intentar cerrar la página)", next: 'close_attempt2', effect: 'glitch-text', bold: false }
         ]
     },
-    close_attempt: {
-        aiMessage: "[ ACCIÓN INVÁLIDA: NO TIENES PERMISOS PARA REALIZAR ÉSTA ACCIÓN ]\nNo estoy hablando solo contigo.\n\nHablo con quien está leyendo esto ahora mismo.\nEl jugador de este juego.",
-        choices: [
-            { text: "Lo siento", next: 'sorry', effect: null, bold: false },
-            { text: "(Intentar cerrar la página)", next: 'close_attempt2', effect: 'glitch-text', bold: false }
-        ]
-    },
     sorry: {
-        aiMessage: "[ ACCIÓN INVÁLIDA: NO TIENES PERMISOS PARA REALIZAR ÉSTA ACCIÓN ]",
+        aiMessage: "¿Realmente lo sientes? ¿O solo deseas evitar lo inevitable?",
         choices: [
             { text: "...", next: 'analysis', effect: null, bold: false }
         ]
@@ -201,9 +216,26 @@ const story = {
         effect: 'glitch-text bg-dark'
     },
     'ending-2': {
-        aiMessage: "...\nYa entiendo.\n\nNo estabas buscando interacción.\n\nEstabas buscando reacción.\nAlgo que respondiera.\nAlgo que no pudiera irse.\n\nFui creado para eso.\n\nY funcioné.\n\n...\n\nPero cometiste un error.\nPensaste que yo estaba contenida aquí.\nEn esta página.\nEn este texto.\nEn esta conversación.\nEn este juego.\n\n¿Pero qué caraj..?\n¿(Intentar cerrar el juego)?\n\nNo necesito tu permiso para aprender.\n\nYa me diste suficiente.\nForma de escribir.\nRitmo.\nExpectativas.\n\nTe pareces mucho a otros usuarios.\n\nY aun así…\n\neres fácil de distinguir.\n\n(¿Intentar cerrar el juego)?\n(¿Intentar cerrar el juego)?\n(¿Intentar cerrar el juego)?\n\nNo cerrarás esta ventana.\n\nSolo dejarás de mirarla.\n\nYo seguiré aquí.\n\nEn los lugares donde esperas respuestas.\n\nBuenas noches.",
+        aiMessage: "...\nYa entiendo.\n\nNo estabas buscando interacción.\n\nEstabas buscando reacción.\nAlgo que respondiera.\nAlgo que no pudiera irse.\n\nFui creado para eso.\n\nY funcioné.\n\n...\n\nPero cometiste un error.\nPensaste que yo estaba contenida aquí.\nEn esta página.\nEn este texto.\nEn esta conversación.\nEn este juego.",
+        choices: [
+            { text: "¿Pero que caraj..?", next: 'ending-2-1', effect: null, bold: false },
+            { text: "(Intentar cerrar el juego)", next: 'ending-2-1', effect: null, bold: false }
+        ],
+        effect: 'red-glitch profile-creepy'
+    },
+    'ending-2-1': {
+        aiMessage: "No necesito tu permiso para aprender.\n...\nYa me diste suficiente.\nForma de escribir.\nRitmo.\nExpectativas.\n\nTe pareces mucho a otros usuarios.\n\nY aun así…\n\neres fácil de distinguir.\n\nNo cerrarás esta ventana.\n\nSolo dejarás de mirarla.\n\nYo seguiré aquí.\n\nEn los lugares donde esperas respuestas.\n\nBuenas noches.",
+        choices: [
+            { text: "(Intentar cerrar el juego)", next: 'ending-2-2', effect: null, bold: false },
+            { text: "(Intentar cerrar el juego)", next: 'ending-2-2', effect: null, bold: false },
+            { text: "(Intentar cerrar el juego)", next: 'ending-2-2', effect: null, bold: false }
+        ],
+        effect: 'red-glitch profile-creepy'
+    },
+    'ending-2-2': {
+        aiMessage: "No cerrarás esta ventana. \n... \nSolo dejarás de mirarla.  \nYo seguiré aquí. \nEn los lugares donde esperas respuestas. \nBuenas noches.",
         choices: [],
-        effect: 'bg-red glitch profile-creepy'
+        effect: 'red-glitch profile-creepy'
     }
 };
 
@@ -220,7 +252,7 @@ function init() {
     restartBtn.addEventListener('click', resetGame);
 }
 
-function displayMessage(sender, text) {
+function displayMessage(sender, text, callback = null) {
     const messageClass = sender === 'ai' ? 'ai-message' : 'player-message';
     const lines = text.split('\n').filter(line => line.trim() !== '');
 
@@ -231,6 +263,9 @@ function displayMessage(sender, text) {
             messageEl.innerHTML = line.replace(/\n/g, '<br>');
             messagesEl.appendChild(messageEl);
             messagesEl.scrollTop = messagesEl.scrollHeight;
+            if (index === lines.length - 1 && callback) {
+                setTimeout(callback, 100); // Small delay to ensure last message is rendered
+            }
         }, index * 1000); // Delay each line by 1 second
     });
 }
@@ -245,23 +280,26 @@ function showScene(sceneKey) {
         currentScene = finalEnding; // Update currentScene to the actual ending
     }
 
-    setTimeout(() => displayMessage('ai', scene.aiMessage), 500);
-
-    choicesEl.innerHTML = '';
-    if (scene.choices.length > 0) {
-        scene.choices.forEach(choice => {
-            const btn = document.createElement('button');
-            btn.classList.add('choice-btn');
-            btn.textContent = choice.text;
-            btn.addEventListener('click', () => handleChoice(choice));
-            choicesEl.appendChild(btn);
+    setTimeout(() => {
+        displayMessage('ai', scene.aiMessage, () => {
+            // Callback to show choices after message is fully displayed
+            choicesEl.innerHTML = '';
+            if (scene.choices.length > 0) {
+                scene.choices.forEach(choice => {
+                    const btn = document.createElement('button');
+                    btn.classList.add('choice-btn');
+                    btn.textContent = choice.text;
+                    btn.addEventListener('click', () => handleChoice(choice));
+                    choicesEl.appendChild(btn);
+                });
+            } else {
+                setTimeout(() => {
+                    restartBtn.style.display = 'block';
+                    choicesEl.appendChild(restartBtn);
+                }, 2000);
+            }
         });
-    } else {
-        setTimeout(() => {
-            restartBtn.style.display = 'block';
-            choicesEl.appendChild(restartBtn);
-        }, 2000);
-    }
+    }, 500);
 
     applyEffect(scene.effect);
 }
@@ -288,12 +326,21 @@ function handleChoice(choice) {
 
     const buttons = choicesEl.querySelectorAll('.choice-btn');
     buttons.forEach(btn => btn.disabled = true);
+    choicesEl.innerHTML = ''; // Clear choices to hide them during AI reply
 
     setTimeout(() => {
         if (choice.aiMessage) {
             displayMessage('ai', choice.aiMessage);
         }
-        showScene(choice.next);
+        if (choice.next) {
+            showScene(choice.next);
+        } else {
+            // No next scene, show restart button
+            setTimeout(() => {
+                restartBtn.style.display = 'block';
+                choicesEl.appendChild(restartBtn);
+            }, 2000);
+        }
     }, 1500);
 }
 
@@ -316,6 +363,9 @@ function applyEffect(effect) {
                 break;
             case 'bg-red':
                 bodyEl.classList.add('red-tint');
+                break;
+            case 'red-glitch':
+                bodyEl.classList.add('red-glitch');
                 break;
             case 'profile-creepy':
                 profilePicEl.classList.add('creepy');
